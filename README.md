@@ -1,6 +1,6 @@
 # SimpleRestView
 
-###Description:
+###Description:<h3>
 SimpleRestView is a library to help you shorten the amount of code needed to write your views in Phoenix framework when  generating json data for a REST service. 
 
 ####Functions:
