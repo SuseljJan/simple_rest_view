@@ -1,10 +1,10 @@
-# SimpleRestView
+<h1> SimpleRestView</h1>
 
 <h3>Description:</h3>
 SimpleRestView is a library to help you shorten the amount of code needed to write your views in Phoenix framework when  generating json data for a REST service. 
 
-####Functions:
-#####render_schema()
+<h4>Functions:</h4>
+<h4>render_schema()</h4>
 
 **input parameters:**\
 1 - Reference to a schema containing all the fields you wish to render<br>
@@ -103,7 +103,7 @@ end
 
 
 
-#####render_wrapper()
+<h4>render_wrapper()</h4>
 ```elixir
 alias MyApp.SimpleRestView, as: SimpleRV
 
@@ -128,7 +128,7 @@ is equivalent to
     end
 ```
 
-#####render_paginated_wrapper()
+<h4>render_paginated_wrapper()<h4>
 
 ```elixir
     def render(..., %{users, users}) do
@@ -173,7 +173,7 @@ end
 
 
 
-## Installation
+<h2>Installation<h2>
 
 The package can be installed
 by adding `simple_rest_view` to your list of dependencies in `mix.exs`:
