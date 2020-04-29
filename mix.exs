@@ -8,9 +8,10 @@ defmodule SimpleRestView.MixProject do
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      description: description(),
 
       name: "SimpleRestView",
-      source_url: ""
+      source_url: "https://github.com/SuseljJan/simple_rest_view"
     ]
   end
 
@@ -27,15 +28,13 @@ defmodule SimpleRestView.MixProject do
   end
 
   defp description do
-    """
-    Library to help with writing concise views in Phoenix REST projects
-    """
+    "Library to help with writing concise views in Phoenix REST projects"
   end
 
   def package do
     [
       maintainers: ["Jan Sušelj"],
-      links: %{},
+      links: %{"GitHub" => "https://github.com/SuseljJan/simple_rest_view"},
       files: [
         "lib/simple_rest_view.ex",
         "mix.exs",

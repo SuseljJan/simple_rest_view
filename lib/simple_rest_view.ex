@@ -77,11 +77,10 @@ defmodule SimpleRestView do
     |> handle_options(converted_opts)
   end
 
-  @doc """
-  Function takes care of converting data from current level and all nested levels
-  into maps that can be send from server.
-  This is where the magic happens!
-  """
+
+#  Function takes care of converting data from current level and all nested levels
+#  into maps that can be send from server.
+#  This is where the magic happens!
   defp convert_options(schema_map, opt) do
     if opt[@adding_keyword] != nil do
 
@@ -143,10 +142,9 @@ defmodule SimpleRestView do
     end
   end
 
-  @doc """
-  Function takes care of rendering a map based on options passed
-  Doesn't handle rendering on nested fields
-  """
+
+#  Function takes care of rendering a map based on options passed
+#  Doesn't handle rendering on nested fields
   defp handle_options(map, opt) do
     map
     |> handle_base_fields(opt)
@@ -163,10 +161,9 @@ defmodule SimpleRestView do
   end
 
 
-  @doc """
-  Functions handle adding fields which get passed in opt parameter.
-  It doesn't convert values and doesn't handle adding for nested fields
-  """
+
+#  Functions handle adding fields which get passed in opt parameter.
+#  It doesn't convert values and doesn't handle adding for nested fields
   defp handle_adding_fields(map, {key, value}),
        do: map |> Map.put(key, value)
 
