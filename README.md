@@ -1,3 +1,4 @@
+
 <h1> SimpleRestView</h1>
 
 <h3>Description:</h3>
@@ -106,7 +107,10 @@ end
 <br><br>
 
 <h2>render_wrapper()</h2>
+
 **usage:** 
+Following call:
+
 ```elixir
 alias MyApp.SimpleRestView, as: SimpleRV
 
@@ -133,7 +137,10 @@ is equivalent to
 
 <br><br>
 <h2>render_paginated_wrapper()</h2>
+
 **usage:** 
+
+Following call:
 ```elixir
     def render(..., %{users, users}) do
       User
