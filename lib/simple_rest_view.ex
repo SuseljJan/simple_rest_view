@@ -1,27 +1,9 @@
 defmodule SimpleRestView do
+  alias User
+
   @moduledoc """
-  Module takes care of creating a map which can be converted into json.
-  Meant to be used to shorten views in Phoenix projects
-  Available functions are:
-
-  render_schema()
-  -> Renders map based on fields of schema passed as first parameter and values of map passed as second parameter
-  -> Third parameter is a keyword array which represent optional parameters:
-    -> only - fields specified in only will be the only fields of schema to get rendered
-    -> except - fields specified in except will be excluded from rendering. All other fields on schema will be rendered
-    -> many - a boolean which determines if values passed in second parameter should be rendered as a single map or a list of maps, defaults to false (single map)
-    -> include_timestamps - a boolean which determines whether to include timestamp fields (inserted_at, updated_at) in the rendered map, defaults to false
-    -> add - enables adding fields. Can be specified in a format [field_name: {SchemaReference, :field_which_references_nested_schema, [options...]}] or as [field_name: (fn model -> end)]
-  usage example: render_schema(User, user, only: [:id, :username], add: [custom_field: (fn user -> some_function(user.email))])
-
-  render_wrapper()
-  -> Wraps results in data tag
-
-  render_paginated_wrapper()
-  -> Works with :scrivener library
-
-
-  Check github repo for more info.
+  Module takes care of creating a map which can be converted into json from a schema obtained in database query.\n
+  Meant to make phoenix views shorter and more concise in REST projects
   """
 
   @adding_keyword :add
@@ -34,7 +16,36 @@ defmodule SimpleRestView do
 
   @doc """
   Function renders all fields of a given schema into a map that can be converted into json.
-  Optional parameters are [many: true/false, only: [:field1, :field2], except: [:field1, :field2], include_timestamps: true/false, add: [field: [f1: {SchemaReference, :field_name, options}, f2: (fn schema -> ... end), f3: %{...}]]]
+  It supports rendering fields of nested objects if specified with add optional parameter.\n
+  Optional parameters are:\n
+  many - true/false\n
+  only - [:field1, :field2]\n
+  except - [:field1, :field2]\n
+  include_timestamps - true/false\n
+  add - [field_name: {SchemaReference, :field_name}] OR [field_name: {SchemaReference, :field_name, opt}] OR [field_name: (fn schema -> ... end)] OR [field_name: %{custom_field: custom_val, ...}]
+
+  ## Examples
+
+      iex> render_schema(User, %User{id: 1, username: "joe", email: "joe@mail.com", ...})
+      %{id: 1, username: "joe", email: "joe@mail.com", ...}
+
+
+
+      iex> render_schema(User, %User{id: 1, username: "joe", email: "joe@mail.con", reviewed: [%Review{...}, %Review{...}]},
+                            except: [:email, :password], add: [avg_rating: (fn user -> get_avg_rating(user.id)),
+                                                               reviewed: {Review, :reviewed, many: true, only: [:comment]}])
+      %{id: 1, username: "joe", avg_rating: 10, reviewed: [%{comment: "..."}, %{comment: "..."}]}
+
+
+      iex> render_schema(User, %User{id: 1, username: "joe", email: "joe@mail.com", reviewed: [%Review{..., reviewer: %User{username: "mary", ...}}, %Review{..., reviewer: %User{username: "johnson", ...}}]},
+                              except: [:email, :password], add: [avg_rating: (fn user -> get_avg_rating(user.id)),
+                                                                 reviewed: {Review, :reviewed, many: true, only: [:comment],
+                                                                    add: [reviewed_by: {User, :reviewer, only: [:username]}]}])
+        %{id: 1, username: "joe", avg_rating: 10,
+          reviewed: [%{comment: "...", reviewed_by: %{username: "mary"}},
+                    %{comment: "...", reviewed_by: %{username: "johnson"}}]}
+
+
   """
   def render_schema(schema_ref, schema_map, opt \\ []) do
     cond do
@@ -43,12 +54,29 @@ defmodule SimpleRestView do
     end
   end
 
+
+  @doc """
+  Wraps a map inside of map with a data tag
+
+  ## Examples
+
+      iex> render_wrapper([%{id: 1, username: "joe"}, %{id: 2, username: "mary"}])
+      %{data: [%{id: 1, username: "joe"}, %{id: 2, username: "mary"}]}
+
+  """
   def render_wrapper(data) do
     %{data: data}
   end
 
   @doc """
   Wraps the result with pagination data obtained when using :scrivener library
+
+  ## Examples
+
+      iex> render_paginated_wrapper([%{id: 1, username: "joe"}, %{id: 2, username: "mary"}], %Scrivener.Page{page_number: 1, page_size: 2, total_pages: 5}, except: [:total_entries])
+      %{data: [%{id: 1, username: "joe"}, %{id: 2, username: "mary"}],
+        page_number: 1, page_size: 2, total_pages: 5}
+
   """
   def render_paginated_wrapper(data, query_result, opt \\ []) do
     %{data: data,
@@ -99,8 +127,8 @@ defmodule SimpleRestView do
             concatenate_options(accumulated_options, renewed_adding_options)
 
           # Adding field with a custom function
-          {key, callback} when is_function(callback) ->
-            concatenate_options(accumulated_options, [{@adding_keyword, [{key, callback.(schema_map)}]}])
+          {key, custom_func} when is_function(custom_func) ->
+            concatenate_options(accumulated_options, [{@adding_keyword, [{key, custom_func.(schema_map)}]}])
 
           _ -> accumulated_options
 

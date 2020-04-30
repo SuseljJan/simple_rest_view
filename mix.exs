@@ -28,7 +28,9 @@ defmodule SimpleRestView.MixProject do
   end
 
   defp description do
-    "Library to help with writing concise views in Phoenix REST projects"
+    """
+    Library to help with writing concise views in Phoenix REST projects
+    """
   end
 
   def package do
