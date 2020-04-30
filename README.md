@@ -59,14 +59,14 @@ Following call:
 ```elixir
 alias MyApp.SimpleRestView, as: SimpleRV
 
-    def render(..., %{user, user}) do
+    def render(..., %{user: user}) do
       User
       |> SimpleRV.render_schema(user)
     end
 ```
 is equivalent to
 ```elixir
-    def render(..., %{user, user}) do
+    def render(..., %{user: user}) do
       %{id: user.id,
         username: user.username,
         email: user.email,
@@ -77,7 +77,7 @@ is equivalent to
 <br><br><br>
 Following call:
 ```elixir
-    def render(..., %{user, user}) do
+    def render(..., %{user: user}) do
       User
       |> SimpleRV.render_schema(user, only: [:id, :username],
            add: [
@@ -88,7 +88,7 @@ Following call:
 ```
 is equivalent to
 ```elixir
-    def render(..., %{user, user}) do
+    def render(..., %{user: user}) do
       %{id: user.id,
         username: user.username
         reviewed: render_many(user.reviewed, ReviewView, "review.json")}
@@ -119,7 +119,7 @@ Following call:
 ```elixir
 alias MyApp.SimpleRestView, as: SimpleRV
 
-    def render(..., %{user, user}) do
+    def render(..., %{user: user}) do
       User
       |> SimpleRV.render_schema(user)
       |> SimpleRV.render_wrapper()
@@ -147,7 +147,7 @@ is equivalent to
 
 Following call:
 ```elixir
-    def render(..., %{users, users}) do
+    def render(..., %{users: users}) do
       User
       |> SimpleRV.render_schema(users.entries, only: [:id, :username], many: true,
            add: [
@@ -155,12 +155,12 @@ Following call:
 	              add: [custom_field: (fn review -> some_function(review.id) end)]
 	              },
                ])
-      |> SimpleRV.render_paginated_wrapper(user)
+      |> SimpleRV.render_paginated_wrapper(users)
     end
 ```
 is equivalent to
 ```elixir
-    def render(..., %{users, users}) do
+    def render(..., %{users: users}) do
       %{data: render_many(users.entries, UserView, "user.json"),
         page_number: users.page_number,
         page_size: users.page_size,
