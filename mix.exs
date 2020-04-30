@@ -36,7 +36,7 @@ defmodule SimpleRestView.MixProject do
   def package do
     [
       maintainers: ["Jan Sušelj"],
-      licences: ["MIT"],
+      licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/SuseljJan/simple_rest_view"},
       files: [
         "lib/simple_rest_view.ex",
