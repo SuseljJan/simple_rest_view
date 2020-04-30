@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ab4efa1b-22ac-4f29-b552-bc5f6bb70f33" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/decimal.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/ecto.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/jason.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/telemetry.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/simple_rest_view.ex" beforeDir="false" afterPath="$PROJECT_DIR$/lib/simple_rest_view.ex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mix.exs" beforeDir="false" afterPath="$PROJECT_DIR$/mix.exs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mix.lock" beforeDir="false" afterPath="$PROJECT_DIR$/mix.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simple_rest_view.iml" beforeDir="false" afterPath="$PROJECT_DIR$/simple_rest_view.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +41,7 @@
       <option name="presentableId" value="Default" />
       <updated>1588075524575</updated>
       <workItem from="1588075528664" duration="1250000" />
-      <workItem from="1588166390860" duration="22097000" />
+      <workItem from="1588166390860" duration="22826000" />
     </task>
     <servers />
   </component>

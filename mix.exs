@@ -9,7 +9,7 @@ defmodule SimpleRestView.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       description: description(),
-
+      package: package(),
       name: "SimpleRestView",
       source_url: "https://github.com/SuseljJan/simple_rest_view"
     ]
@@ -36,6 +36,7 @@ defmodule SimpleRestView.MixProject do
   def package do
     [
       maintainers: ["Jan Sušelj"],
+      licences: ["MIT"],
       links: %{"GitHub" => "https://github.com/SuseljJan/simple_rest_view"},
       files: [
         "lib/simple_rest_view.ex",
