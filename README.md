@@ -15,7 +15,7 @@ SimpleRestView is a library to help you shorten the amount of code needed to wri
 - except - fields specified in except will be excluded from rendering. All other fields on schema will be rendered
 - many - a boolean which determines if values passed in second parameter should be rendered as a single map or a list of maps, defaults to false (single map)
 - include_timestamps - a boolean which determines whether to include timestamp fields (inserted_at, updated_at) in the rendered map, defaults to false
-- add - enables adding fields. Can be specified in a format [field_name: {SchemaReference, :field_which_references_nested_schema, [options...]}] (options can contain other nested fields) or as [field_name: (fn model -> end)]
+- add - enables adding fields. Can be specified in a format [field_name: {SchemaReference, :field_which_references_nested_schema, [options...]}] OR [field_name: (fn model -> end)] OR [field_name: %{custom_field: custom_val, ...}]
 
 **Example**
 
@@ -146,8 +146,9 @@ Following call:
       User
       |> SimpleRV.render_schema(users.entries, only: [:id, :username], many: true,
            add: [
-              reviewed: {Review, :reviewed, many: true},
-              custom_field: (fn review -> some_function(review.id) end)
+              reviewed: {Review, :reviewed, many: true, 
+	              add: [custom_field: (fn review -> some_function(review.id) end)]
+	              },
                ])
       |> SimpleRV.render_paginated_wrapper(user)
     end
