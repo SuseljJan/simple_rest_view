@@ -132,7 +132,7 @@ is equivalent to
 ```
 
 <br><br>
-<h2>render_paginated_wrapper()<h2>
+<h2>render_paginated_wrapper()</h2>
 **usage:** 
 ```elixir
     def render(..., %{users, users}) do
