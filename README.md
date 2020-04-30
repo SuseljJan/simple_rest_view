@@ -4,7 +4,7 @@
 SimpleRestView is a library to help you shorten the amount of code needed to write your views in Phoenix framework when  generating json data for a REST service. 
 
 <h4>Functions:</h4>
-<h4>render_schema()</h4>
+<h2>render_schema()</h2>
 
 **input parameters:**\
 1 - Reference to a schema containing all the fields you wish to render<br>
@@ -29,7 +29,7 @@ reviewed: [
 ],
 ...}
 ```
-With the following function call:
+passed in as second parameter to function:
 ```elixir
 SimpleRestView.render_schema(User, user, only: [:id, :username], 
                               add: [
@@ -38,7 +38,7 @@ SimpleRestView.render_schema(User, user, only: [:id, :username],
                                 ]                                 
                             )
 ```
-Result would be: 
+result would be: 
 ```elixir
 %{id: 1,
   username: "usr1",  
@@ -49,6 +49,7 @@ Result would be:
 <br><br>
 **usage:** 
 
+Following call:
 ```elixir
 alias MyApp.SimpleRestView, as: SimpleRV
 
@@ -68,7 +69,7 @@ is equivalent to
 ```
 
 <br><br><br>
-
+Following call:
 ```elixir
     def render(..., %{user, user}) do
       User
@@ -102,8 +103,10 @@ end
 
 
 
+<br><br>
 
-<h4>render_wrapper()</h4>
+<h2>render_wrapper()</h2>
+**usage:** 
 ```elixir
 alias MyApp.SimpleRestView, as: SimpleRV
 
@@ -128,8 +131,9 @@ is equivalent to
     end
 ```
 
-<h4>render_paginated_wrapper()<h4>
-
+<br><br>
+<h2>render_paginated_wrapper()<h2>
+**usage:** 
 ```elixir
     def render(..., %{users, users}) do
       User
@@ -186,7 +190,4 @@ def deps do
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/simple_rest_view](https://hexdocs.pm/simple_rest_view).
 
