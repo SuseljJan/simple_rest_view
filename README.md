@@ -185,7 +185,7 @@ end
 
 
 
-<h2>Installation<h2>
+<h2>Installation</h2>
 
 The package can be installed
 by adding `simple_rest_view` to your list of dependencies in `mix.exs`:
