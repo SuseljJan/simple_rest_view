@@ -48,7 +48,7 @@ result would be:
 ```elixir
 %{id: 1,
   username: "usr1",  
-  reviewed: [{...}, {...}],
+  reviewed: [%{...}, %{...}],
   avg_rating: ...}
 ```
 
