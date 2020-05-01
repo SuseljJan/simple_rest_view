@@ -81,8 +81,8 @@ Following call:
       User
       |> SimpleRV.render_schema(user, only: [:id, :username],
            add: [
-              reviewed: {Review, :reviewed, many: true},
-              custom_field: (fn review -> some_function(review.id) end)
+              reviewed: {Review, :reviewed, many: true, 
+	      	add: [custom_field: (fn review -> some_function(review.id) end)]},              
                ])
     end
 ```
