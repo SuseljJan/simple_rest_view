@@ -48,7 +48,7 @@ result would be:
 ```elixir
 %{id: 1,
   username: "usr1",  
-  reviewed: [{...}, {...}],
+  reviewed: [%{...}, %{...}],
   avg_rating: ...}
 ```
 
@@ -81,8 +81,8 @@ Following call:
       User
       |> SimpleRV.render_schema(user, only: [:id, :username],
            add: [
-              reviewed: {Review, :reviewed, many: true},
-              custom_field: (fn review -> some_function(review.id) end)
+              reviewed: {Review, :reviewed, many: true, 
+	      	add: [custom_field: (fn review -> some_function(review.id) end)]},              
                ])
     end
 ```
@@ -132,7 +132,7 @@ is equivalent to
       %{data: render_one(user, UserView, "user.json")}
     end
 
-    def render("user.json", %{user, user}) do
+    def render("user.json", %{user: user}) do
       %{id: user.id,
         username: user.username,
         email: user.email,
