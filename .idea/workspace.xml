@@ -2,8 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ab4efa1b-22ac-4f29-b552-bc5f6bb70f33" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/benchee.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/benchee.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/cmark.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/cmark.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/decimal.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/decimal.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/earmark.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/earmark.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/ecto.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/ecto.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/ex_doc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/ex_doc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/excoveralls.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/excoveralls.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/jason.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jason.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/makeup.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/makeup.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/makeup_elixir.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/makeup_elixir.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/nimble_parsec.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/nimble_parsec.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/stream_data.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/stream_data.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/telemetry.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/telemetry.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/simple_rest_view.ex" beforeDir="false" afterPath="$PROJECT_DIR$/lib/simple_rest_view.ex" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,12 +54,28 @@
       <option name="presentableId" value="Default" />
       <updated>1588075524575</updated>
       <workItem from="1588075528664" duration="1250000" />
-      <workItem from="1588166390860" duration="23646000" />
+      <workItem from="1588166390860" duration="24278000" />
+      <workItem from="1588417093305" duration="54000" />
+      <workItem from="1588417158667" duration="8000" />
+      <workItem from="1588417182602" duration="1141000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="WindowStateProjectService">
     <state x="561" y="241" width="672" height="678" key="search.everywhere.popup" timestamp="1588202685649">

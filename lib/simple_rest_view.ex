@@ -26,24 +26,40 @@ defmodule SimpleRestView do
 
   ## Examples
 
-      iex> render_schema(User, %User{id: 1, username: "joe", email: "joe@mail.com", ...})
-      %{id: 1, username: "joe", email: "joe@mail.com", ...}
+      iex> user = %User{id: 1, username: "joe", email: "joe@mail.com", password: "password"}
+      iex> render_schema(User, user)
+      %{id: 1, username: "joe", email: "joe@mail.com", password: "password"}
 
 
-
-      iex> render_schema(User, %User{id: 1, username: "joe", email: "joe@mail.con", reviewed: [%Review{...}, %Review{...}]},
-                            except: [:email, :password], add: [avg_rating: (fn user -> get_avg_rating(user.id)),
-                                                               reviewed: {Review, :reviewed, many: true, only: [:comment]}])
+      iex> user = %User{id: 1, username: "joe", email: "joe@mail.con", reviewed: [%Review{...}, %Review{...}]}
+      iex> render_schema(User, user,
+      ...>    except: [:email, :password],
+      ...>    add: [
+      ...>        avg_rating: (fn user -> get_avg_rating(user.id)),
+      ...>        reviewed: {Review, :reviewed, many: true, only: [:comment]}
+      ...>      ]
+      ...>    )
       %{id: 1, username: "joe", avg_rating: 10, reviewed: [%{comment: "..."}, %{comment: "..."}]}
 
 
-      iex> render_schema(User, %User{id: 1, username: "joe", email: "joe@mail.com", reviewed: [%Review{..., reviewer: %User{username: "mary", ...}}, %Review{..., reviewer: %User{username: "johnson", ...}}]},
-                              except: [:email, :password], add: [avg_rating: (fn user -> get_avg_rating(user.id)),
-                                                                 reviewed: {Review, :reviewed, many: true, only: [:comment],
-                                                                    add: [reviewed_by: {User, :reviewer, only: [:username]}]}])
-        %{id: 1, username: "joe", avg_rating: 10,
-          reviewed: [%{comment: "...", reviewed_by: %{username: "mary"}},
-                    %{comment: "...", reviewed_by: %{username: "johnson"}}]}
+      iex> user = %User{id: 1, username: "joe", email: "joe@mail.com", reviewed: [%Review{..., reviewer: %User{username: "mary", ...}}, %Review{..., reviewer: %User{username: "johnson", ...}}]}
+      iex> render_schema(User, user,
+      ...>    except: [:email, :password],
+      ...>    add: [
+      ...>        avg_rating: (fn user -> get_avg_rating(user.id)),
+      ...>        reviewed: {Review, :reviewed, many: true, only: [:comment],
+      ...>              add: [
+      ...>                 reviewed_by: {User, :reviewer, only: [:username]}
+      ...>               ]}
+      ...>      ])
+        %{id: 1,
+          username: "joe",
+          avg_rating: 10,
+          reviewed: [
+            %{comment: "...", reviewed_by: %{username: "mary"}},
+            %{comment: "...", reviewed_by: %{username: "johnson"}}
+            ]
+          }
 
 
   """
@@ -60,7 +76,8 @@ defmodule SimpleRestView do
 
   ## Examples
 
-      iex> render_wrapper([%{id: 1, username: "joe"}, %{id: 2, username: "mary"}])
+      iex> users = [%{id: 1, username: "joe"}, %{id: 2, username: "mary"}]
+      iex> render_wrapper(users)
       %{data: [%{id: 1, username: "joe"}, %{id: 2, username: "mary"}]}
 
   """
@@ -73,9 +90,16 @@ defmodule SimpleRestView do
 
   ## Examples
 
-      iex> render_paginated_wrapper([%{id: 1, username: "joe"}, %{id: 2, username: "mary"}], %Scrivener.Page{page_number: 1, page_size: 2, total_pages: 5}, except: [:total_entries])
-      %{data: [%{id: 1, username: "joe"}, %{id: 2, username: "mary"}],
-        page_number: 1, page_size: 2, total_pages: 5}
+      iex> users = [%{id: 1, username: "joe"}, %{id: 2, username: "mary"}]
+      iex> pagination_info = %Scrivener.Page{page_number: 1, page_size: 2, total_pages: 5}
+      iex> render_paginated_wrapper(users, pagination_info, except: [:total_entries])
+      %{data: [
+            %{id: 1, username: "joe"},
+            %{id: 2, username: "mary"}
+          ],
+        page_number: 1,
+        page_size: 2,
+        total_pages: 5}
 
   """
   def render_paginated_wrapper(data, query_result, opt \\ []) do

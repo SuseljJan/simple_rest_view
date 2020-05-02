@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="ex_doc" type="mix">
+  <library name="ex_doc">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_doc/ebin" />
     </CLASSES>

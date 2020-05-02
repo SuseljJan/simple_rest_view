@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="makeup" type="mix">
+  <library name="makeup">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/_build/dev/lib/makeup/ebin" />
     </CLASSES>
