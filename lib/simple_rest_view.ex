@@ -2,8 +2,8 @@ defmodule SimpleRestView do
   alias User
 
   @moduledoc """
-  Module takes care of creating a map which can be converted into json from a schema obtained in database query.\n
-  Meant to make phoenix views shorter and more concise in REST projects
+  Module takes care of creating concise views in Phoenix REST projects.\n
+  It makes it possible to render nested JSON objects and limit which fields to render within the same function.
   """
 
   @adding_keyword :add
@@ -15,23 +15,33 @@ defmodule SimpleRestView do
 
 
   @doc """
-  Function renders all fields of a given schema into a map that can be converted into json.
+  Function renders all fields which exist on a given schema into a map that can be converted into json.
   It supports rendering fields of nested objects if specified with add optional parameter.\n
   Optional parameters are:\n
   many - true/false\n
   only - [:field1, :field2]\n
   except - [:field1, :field2]\n
   include_timestamps - true/false\n
-  add - [field_name: {SchemaReference, :field_name}] OR [field_name: {SchemaReference, :field_name, opt}] OR [field_name: (fn schema -> ... end)] OR [field_name: %{custom_field: custom_val, ...}]
+  add -
+  * [field_name: {SchemaReference, :field_on_schema_map}] OR
+  * [field_name: {SchemaReference, :field_on_schema_map, opt}] OR
+  * [field_name: (fn schema -> ... end)] OR
+  * [field_name: %{custom_field: custom_val, ...}]
 
   ## Examples
 
-      iex> user = %User{id: 1, username: "joe", email: "joe@mail.com", password: "password"}
+      iex> user = %User{id: 1, username: "joe", email: "joe@mail.com", password: "passwordhash123"}
       iex> render_schema(User, user)
-      %{id: 1, username: "joe", email: "joe@mail.com", password: "password"}
+      %{id: 1, username: "joe", email: "joe@mail.com", password: "passwordhash123"}
 
 
-      iex> user = %User{id: 1, username: "joe", email: "joe@mail.con", reviewed: [%Review{...}, %Review{...}]}
+      iex> user = %User{
+      ...>  id: 1,
+      ...>  username: "joe",
+      ...>  email: "joe@mail.con",
+      ...>  password: "password123",
+      ...>  reviewed: [%Review{...}, %Review{...}]
+      ...> }
       iex> render_schema(User, user,
       ...>    except: [:email, :password],
       ...>    add: [
@@ -39,15 +49,28 @@ defmodule SimpleRestView do
       ...>        reviewed: {Review, :reviewed, many: true, only: [:comment]}
       ...>      ]
       ...>    )
-      %{id: 1, username: "joe", avg_rating: 10, reviewed: [%{comment: "..."}, %{comment: "..."}]}
+      %{id: 1,
+        username: "joe",
+        avg_rating: 10,
+        reviewed: [%{comment: "..."}, %{comment: "..."}]}
 
 
-      iex> user = %User{id: 1, username: "joe", email: "joe@mail.com", reviewed: [%Review{..., reviewer: %User{username: "mary", ...}}, %Review{..., reviewer: %User{username: "johnson", ...}}]}
+      iex> user = %User{
+      ...> id: 1,
+      ...> username: "joe",
+      ...> email: "joe@mail.com",
+      ...> password: "passwordhash123",
+      ...> reviewed: [
+      ...>    %Review{id: 1, comment: "...", ... , reviewer: %User{username: "mary", ...}},
+      ...>    %Review{id: 2, comment: "...", ... , reviewer: %User{username: "johnson", ...}}
+      ...> ]}
       iex> render_schema(User, user,
       ...>    except: [:email, :password],
       ...>    add: [
       ...>        avg_rating: (fn user -> get_avg_rating(user.id)),
-      ...>        reviewed: {Review, :reviewed, many: true, only: [:comment],
+      ...>        reviewed: {Review, :reviewed,
+      ...>              many: true,
+      ...>              only: [:comment],
       ...>              add: [
       ...>                 reviewed_by: {User, :reviewer, only: [:username]}
       ...>               ]}
@@ -72,13 +95,19 @@ defmodule SimpleRestView do
 
 
   @doc """
-  Wraps a map inside of map with a data tag
+  Wraps a map passed in as a parameter inside of map having a data field - containing map passed in as parameter
 
   ## Examples
 
-      iex> users = [%{id: 1, username: "joe"}, %{id: 2, username: "mary"}]
+      iex> users = [
+      ...>  %{id: 1, username: "joe"},
+      ...>  %{id: 2, username: "mary"}
+      ...> ]
       iex> render_wrapper(users)
-      %{data: [%{id: 1, username: "joe"}, %{id: 2, username: "mary"}]}
+      %{data: [
+        %{id: 1, username: "joe"},
+        %{id: 2, username: "mary"}
+      ]}
 
   """
   def render_wrapper(data) do
@@ -90,8 +119,11 @@ defmodule SimpleRestView do
 
   ## Examples
 
-      iex> users = [%{id: 1, username: "joe"}, %{id: 2, username: "mary"}]
-      iex> pagination_info = %Scrivener.Page{page_number: 1, page_size: 2, total_pages: 5}
+      iex> users = [
+      ...>  %{id: 1, username: "joe"},
+      ...>  %{id: 2, username: "mary"}
+      ...> ]
+      iex> pagination_info = %Scrivener.Page{page_number: 1, page_size: 2, total_pages: 5, entries: ...}
       iex> render_paginated_wrapper(users, pagination_info, except: [:total_entries])
       %{data: [
             %{id: 1, username: "joe"},
